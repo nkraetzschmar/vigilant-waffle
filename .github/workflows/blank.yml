@@ -10,5 +10,6 @@ jobs:
           sudo umount /mnt
           sudo mount
           sudo findmnt
+          sudo lsblk -f
           sudo mkswap -f "$dev"
           sudo swapon "$dev"
