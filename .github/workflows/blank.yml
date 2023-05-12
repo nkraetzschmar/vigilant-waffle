@@ -5,7 +5,7 @@ jobs:
     steps:
       - run: |
           free -h
-          swap_file="$(swapon --show NAME | tail -n 1)"
+          swap_file="$(swapon --noheadings --show=NAME)"
           echo "$swap_file"
           sudo swapoff "$swap_file"
           sudo rm "$swap_file"
