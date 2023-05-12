@@ -4,15 +4,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          sudo swapoff -a
-          part_dev="$(findmnt -T /mnt -n -o SOURCE)"
-          echo "$part_dev"
-          dev="/dev/$(lsblk -n -o PKNAME "$part_dev")"
-          echo "$dev"
-          sudo umount /mnt
-          sudo lsblk -f
-          sudo dd if=/dev/zero of="$dev" bs=512 count=1 conv=notrunc
-          sudo partprobe
-          sudo lsblk -f
-          sudo mkswap -f "$dev"
-          sudo swapon "$dev"
+          free -h
+          swap_file="$(swapon --show NAME | tail -n 1)"
+          echo "$swap_file"
+          sudo swapoff "$swap_file"
+          sudo rm "$swap_file"
+          sudo truncate -s 12G "$swap_file"
+          sudo swapon "$swap_file"
+          free -h
