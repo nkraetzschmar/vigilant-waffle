@@ -7,7 +7,7 @@ jobs:
           sudo swapoff -a
           part_dev="$(findmnt -T /mnt -n -o SOURCE)"
           echo "$part_dev"
-          dev="/dev/$(lsblk -n -o PKNAME "$dev")"
+          dev="/dev/$(lsblk -n -o PKNAME "$part_dev")"
           echo "$dev"
           sudo lsblk -f
           sudo dd if=/dev/zero of="$dev" bs=512 count=1 conv=notrunc
