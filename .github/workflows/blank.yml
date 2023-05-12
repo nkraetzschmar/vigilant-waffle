@@ -9,6 +9,7 @@ jobs:
           echo "$part_dev"
           dev="/dev/$(lsblk -n -o PKNAME "$part_dev")"
           echo "$dev"
+          sudo umount /mnt
           sudo lsblk -f
           sudo dd if=/dev/zero of="$dev" bs=512 count=1 conv=notrunc
           sudo partprobe
