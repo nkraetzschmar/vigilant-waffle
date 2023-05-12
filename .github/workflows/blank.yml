@@ -4,5 +4,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          sudo swapon --show
-          findmnt -T /mnt
+          sudo swapoff -a
+          dev="$(findmnt -T /mnt -n -o SOURCE)"
+          echo "$dev"
+          sudo umount /mnt
+          sudo mkswap -f "$dev"
+          sudo swapon "$dev"
