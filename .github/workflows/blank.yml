@@ -8,6 +8,6 @@ jobs:
           dev="$(findmnt -T /mnt -n -o SOURCE)"
           echo "$dev"
           sudo umount /mnt
-          sudo fuser "$dev"
+          sudo mkfs.ext4 -f "$dev"
           sudo mkswap -f "$dev"
           sudo swapon "$dev"
